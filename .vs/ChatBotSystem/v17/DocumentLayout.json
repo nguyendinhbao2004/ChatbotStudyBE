@@ -1,0 +1,262 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\project\\Chatbot\\ChatBotSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\config\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\config\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\conversation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\conversation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\messagecitation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\messagecitation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\documentchunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\documentchunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotinterfacture\\entity\\baseentity\\baseentities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AEA26A2C-AF26-44A2-AE0E-C32CB64E18A9}|ChatBotInterfacture\\ChatBotInterfacture.csproj|solutionrelative:chatbotinterfacture\\entity\\baseentity\\baseentities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B0529A2-4787-45B1-934D-84068F5DFB77}|ChatBotSystem\\ChatBotSystem.csproj|d:\\project\\chatbot\\chatbotsystem\\chatbotsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B0529A2-4787-45B1-934D-84068F5DFB77}|ChatBotSystem\\ChatBotSystem.csproj|solutionrelative:chatbotsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Config\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Config\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Config\\ApplicationDbContext.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Config\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAwwEkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T04:11:23.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MessageCitation.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\MessageCitation.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\MessageCitation.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\MessageCitation.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\MessageCitation.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T04:00:03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChatMessage.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\ChatMessage.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\ChatMessage.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\ChatMessage.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\ChatMessage.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAIwB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:57:43.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DocumentChunk.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\DocumentChunk.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\DocumentChunk.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\DocumentChunk.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\DocumentChunk.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAA6wB4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:53:09.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Document.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Document.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Document.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Document.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Document.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAcwCMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:46:44.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Subject.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Subject.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Subject.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Subject.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Subject.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:30:56.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Course.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Course.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Course.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Course.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Course.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAqwBsAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:30:24.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Enrollment.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Enrollment.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Enrollment.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Enrollment.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Enrollment.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:22:29.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Conversation.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Conversation.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Conversation.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Conversation.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Conversation.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAIBEwBoAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:17:12.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BaseEntities.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\BaseEntity\\BaseEntities.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\BaseEntity\\BaseEntities.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\BaseEntity\\BaseEntities.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\BaseEntity\\BaseEntities.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T02:46:47.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\RefreshToken.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\RefreshToken.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\RefreshToken.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA6wBMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T02:45:51.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Role.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Role.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\Role.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\Role.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\Role.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T02:44:14.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\User.cs",
+              "RelativeDocumentMoniker": "ChatBotInterfacture\\Entity\\User.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotInterfacture\\Entity\\User.cs",
+              "RelativeToolTip": "ChatBotInterfacture\\Entity\\User.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T02:42:18.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotSystem\\Program.cs",
+              "RelativeDocumentMoniker": "ChatBotSystem\\Program.cs",
+              "ToolTip": "D:\\project\\Chatbot\\ChatBotSystem\\ChatBotSystem\\Program.cs",
+              "RelativeToolTip": "ChatBotSystem\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T02:38:05.033Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
