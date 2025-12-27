@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Numerics;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +26,7 @@ namespace ChatBotInterfacture.Entity
         // VECTOR EMBEDDING
         // Nếu dùng PostgreSQL + pgvector: Cột này sẽ map vào kiểu 'vector(1536)'
         // Ở đây khai báo float[] để code C# hiểu.
-        public float[] Vector { get; set; }
+        [Column(TypeName = "vector(1536)")]
+        public Pgvector.Vector Vector { get; set; }
     }
 }

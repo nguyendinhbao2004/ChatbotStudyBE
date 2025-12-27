@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("d22019f8-cbbf-4400-863e-5008c992c2a3")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChatBotSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+154565f8d78c9e03c967d8529fb5f951d2f75645")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChatBotSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChatBotSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -35,9 +35,10 @@ namespace ChatBotInterfacture.Config
             base.OnModelCreating(builder);
             // Thiết lập quan hệ nhiều-nhiều giữa User và Course thông qua Enrollment
             // --- CẤU HÌNH QUAN HỆ & RÀNG BUỘC ---
+            builder.HasPostgresExtension("vector");
 
-        // 1. Enrollment: Một sinh viên không thể đăng ký 2 lần vào 1 khóa học
-        builder.Entity<Enrollment>()
+            // 1. Enrollment: Một sinh viên không thể đăng ký 2 lần vào 1 khóa học
+            builder.Entity<Enrollment>()
             .HasIndex(e => new { e.UserId, e.CourseId })
             .IsUnique();
 
@@ -81,8 +82,11 @@ namespace ChatBotInterfacture.Config
             .WithOne(m => m.Conversation)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // --- CẤU HÌNH VECTOR (Nếu dùng PostgreSQL + pgvector) ---
-        // builder.HasPostgresExtension("vector");
+            // --- CẤU HÌNH VECTOR (Nếu dùng PostgreSQL + pgvector) ---
+            // builder.HasPostgresExtension("vector");
+            builder.Entity<DocumentChunk>()
+                .Property(c => c.Vector)
+                .HasColumnType("vector(1536)"); // 1536 là số chiều của OpenAI/Gemini embeddings
         }
     }
 }

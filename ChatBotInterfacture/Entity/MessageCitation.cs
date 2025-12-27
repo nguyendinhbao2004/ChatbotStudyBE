@@ -17,7 +17,7 @@ namespace ChatBotInterfacture.Entity
         public virtual ChatMessage ChatMessage { get; set; }
 
         // Trỏ về đoạn tài liệu nào đã được dùng để trả lời
-        public int DocumentChunkId { get; set; }
+        public Guid DocumentChunkId { get; set; }
         [ForeignKey(nameof(DocumentChunkId))]
         public virtual DocumentChunk DocumentChunk { get; set; }
         public double RelevanceScore { get; set; }
