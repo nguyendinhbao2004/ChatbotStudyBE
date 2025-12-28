@@ -17,10 +17,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChatBotApplication\ChatBotApplication.csproj" />
+    <ProjectReference Include="..\ChatBotInterfacture\ChatBotInterfacture.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 
 </Project>

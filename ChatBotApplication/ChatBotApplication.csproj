@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
-    <Folder Include="Interface\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="Service\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Common\Mapping\" />
+    <Folder Include="Dto\Auth\" />
+    <Folder Include="Dto\Course\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Service\Implements\" />
+    <Folder Include="Service\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChatBotInterfacture\ChatBotInterfacture.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
