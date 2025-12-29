@@ -3,6 +3,8 @@ using Domain.Common;
 using Domain.Entity;
 using Domain.Enums;
 using Domain.Exception;
+using Domain.Exceptions;
+using Domain.ValueOjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +21,7 @@ namespace Domain.Entity
 
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public decimal Price { get; private set; }
+        public Money Price { get; private set; }
         public string InstructorId { get; private set; } // Link tới User
 
         public Guid SubjectId { get; private set; } // Bắt buộc course phải thuộc về 1 môn
@@ -35,15 +37,20 @@ namespace Domain.Entity
         private readonly List<Document> _documents = new();
         public IReadOnlyCollection<Document> Documents => _documents.AsReadOnly();
 
-        public Course(string title, Guid subjectId, string description, decimal price, string instructorId)
+        public Course()
+        {
+            
+        }
+
+        public Course(string title, Guid subjectId, string description, Money price, string instructorId)
         {
             if(string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentException("Title cannot be null or empty", nameof(title));
+                throw new DomainException("Title cannot be null or empty");
             }
             if(subjectId == Guid.Empty)
             {
-                throw new ArgumentException("SubjectId cannot be empty", nameof(subjectId));
+                throw new DomainException("SubjectId cannot be empty");
             }
 
             Title = title;
@@ -55,11 +62,11 @@ namespace Domain.Entity
         public void Publish()
         {
             // Business Rule: Phải có ít nhất 1 bài học mới được Publish
-            if (_documents.Count == 0) throw new ArgumentException("Cannot publish empty course");
+            if (_documents.Count == 0) throw new DomainException("Cannot publish empty course");
             Status = CourseStatus.Published;
         }
 
-        public void UpdateInfo(string title, decimal price)
+        public void UpdateInfo(string title, Money price)
         {
             Title = title;
             Price = price;
@@ -69,7 +76,7 @@ namespace Domain.Entity
         {
             if(document == null)
             {
-                throw new ArgumentNullException(nameof(document), "Document cannot be null");
+                throw new DomainException("Document cannot be null");
             }
             _documents.Add(document);
             UpdatedAt = DateTime.UtcNow;

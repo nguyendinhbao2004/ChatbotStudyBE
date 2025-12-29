@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using Domain.Enums;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace Domain.Entity
         public ChatMessage() { }
         public ChatMessage(Guid conversationId, MessageRole role, string content, int tokenCount = 0)
         {
-            if (conversationId == Guid.Empty) throw new ArgumentException("ConversationId cannot be empty", nameof(conversationId));
+            if (conversationId == Guid.Empty) throw new DomainException("ConversationId cannot be empty");
             if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
             ConversationId = conversationId;
             Role = role;
@@ -36,7 +37,7 @@ namespace Domain.Entity
         // Ví dụ: Bot trả lời sai, User muốn edit lại câu trả lời để Fine-tune
         public void UpdateContent(string newContent)
         {
-            if (string.IsNullOrWhiteSpace(newContent)) return;
+            if (string.IsNullOrWhiteSpace(newContent)) throw new DomainException("New Content cannot be empty");
             Content = newContent;
             UpdatedAt = DateTime.UtcNow;
         }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Interface
 {
-    internal interface IUnitOfWork
+    //đảm bảo tính toàn vẹn dữ liệu (Data Consistency) khi thao tác trên nhiều bảng cùng lúc
+    //khả năng lưu tất cả thay đổi xuống Database cùng một lúc.
+    public interface IUnitOfWork
     {
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

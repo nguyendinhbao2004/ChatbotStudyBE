@@ -1,6 +1,7 @@
 ﻿
 using Domain.Common;
 using Domain.Enums;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,11 +35,11 @@ namespace Domain.Entity
         {
             if(string.IsNullOrWhiteSpace(userId))
             {
-                throw new ArgumentException("UserId cannot be null or empty", nameof(userId));
+                throw new DomainException("UserId cannot be null or empty");
             }
             if(string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentException("Title cannot be null or empty", nameof(title));
+                throw new DomainException("Title cannot be null or empty");
             }
             Id = Guid.NewGuid();
             UserId = userId;
@@ -51,7 +52,7 @@ namespace Domain.Entity
         {
             if(message == null)
             {
-                throw new ArgumentNullException(nameof(message), "Message cannot be null");
+                throw new DomainException("Message cannot be null");
             }
             _messages.Add(message);
             LastActive = DateTime.UtcNow;
@@ -61,7 +62,7 @@ namespace Domain.Entity
         {
             if(string.IsNullOrWhiteSpace(newTitle))
             {
-                throw new ArgumentException("Title cannot be null or empty", nameof(newTitle));
+                throw new DomainException("Title cannot be null or empty");
             }
             Title = newTitle;
         }

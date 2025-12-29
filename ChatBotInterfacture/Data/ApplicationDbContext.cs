@@ -39,6 +39,7 @@ namespace ChatBotInterfacture.Config
             // ====================================================
             // A. CẤU HÌNH USER & AUTH
             // ====================================================
+
             builder.Entity<User>(entity =>
             {
                 entity.ToTable("AspNetUsers"); // Hoặc tên bạn muốn
@@ -51,6 +52,17 @@ namespace ChatBotInterfacture.Config
                       .WithOne()
                       .HasForeignKey(rt => rt.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
+                // Cấu hình Value Object (OwnsOne)
+                entity.OwnsOne(u => u.Address, address =>
+                {
+                    // Đặt tên cột trong DB (Tùy chọn, mặc định là Address_Street)
+                    address.Property(a => a.Street).HasColumnName("Street").HasMaxLength(200);
+                    address.Property(a => a.City).HasColumnName("City").HasMaxLength(100);
+                    address.Property(a => a.State).HasColumnName("State").HasMaxLength(100);
+                    address.Property(a => a.Country).HasColumnName("Country").HasMaxLength(100);
+                    address.Property(a => a.ZipCode).HasColumnName("ZipCode").HasMaxLength(20);
+                });
+                
             });
 
             builder.Entity<RefreshToken>(entity =>
@@ -100,6 +112,13 @@ namespace ChatBotInterfacture.Config
                       .WithOne(d => d.Course)
                       .HasForeignKey(d => d.CourseId)
                       .OnDelete(DeleteBehavior.Cascade);
+
+                entity.OwnsOne(c => c.Price, price =>
+                {
+                    price.Property(p => p.Amount).HasColumnName("PriceAmount").IsRequired();
+                    price.Property(p => p.Currency).HasColumnName("PriceCurrency").IsRequired().HasMaxLength(10);
+                });
+            
             });
 
             builder.Entity<Enrollment>(entity =>

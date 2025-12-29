@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.ValueOjects;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Domain.Entity
         public string FullName { get; private set; }
         public string? StudentId { get; private set; } // Mã sinh viên
         public string? Major { get; private set; }
+
+        public Address? Address { get; private set; }
 
         // Encapsulation
         private readonly List<RefreshToken> _refreshTokens = new();
@@ -42,6 +45,12 @@ namespace Domain.Entity
             // Id là User.Id (kiểu string của Identity)
             var rt = new RefreshToken(this.Id, token, jwtId, expires);
             _refreshTokens.Add(rt);
+        }
+
+        public void UpdateAddress(string street, string city, string country)
+        {
+            // Khi thay đổi địa chỉ, ta TẠO MỚI (Immutability)
+            Address = new Address(street, city, "", country, "");
         }
     }
 }
