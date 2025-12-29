@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Interfaces\" />
-    <Folder Include="Common\Mapping\" />
-    <Folder Include="Dto\Auth\" />
-    <Folder Include="Dto\Course\" />
-    <Folder Include="Validation\" />
-    <Folder Include="Service\Implements\" />
-    <Folder Include="Service\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
