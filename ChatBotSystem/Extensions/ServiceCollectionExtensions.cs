@@ -1,6 +1,15 @@
-﻿namespace ChatBotSystem.Extensions
+﻿using ChatBotInterfacture.Repositories;
+using Domain.Interface.Repository;
+
+namespace ChatBotSystem.Extensions
 {
-    public class ServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            // Đăng ký GenericRepository
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            return services;
+        }
     }
 }

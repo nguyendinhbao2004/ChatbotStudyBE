@@ -1,4 +1,5 @@
 ﻿using ChatBotInterfacture.Config;
+using ChatBotSystem.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Pgvector.EntityFrameworkCore; // <--- THÊM DÒNG NÀY VÀO
 
@@ -25,12 +26,16 @@ namespace ChatBotSystem
 
             var app = builder.Build();
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
+
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseAuthorization();
             app.MapControllers();
 

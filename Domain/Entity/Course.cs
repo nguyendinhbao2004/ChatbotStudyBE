@@ -66,10 +66,12 @@ namespace Domain.Entity
             Status = CourseStatus.Published;
         }
 
-        public void UpdateInfo(string title, Money price)
+        public void UpdateInfo(string title, Money price, string decription, CourseLevel level)
         {
             Title = title;
             Price = price;
+            Description = decription;
+            level = level;
         }
 
         public void AddDocument(Document document)
