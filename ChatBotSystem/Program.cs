@@ -1,4 +1,6 @@
-﻿using ChatBotInterfacture.Config;
+﻿using ChatBotApplication;
+using ChatBotInterfacture;
+using ChatBotInterfacture.Config;
 using ChatBotSystem.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Pgvector.EntityFrameworkCore; // <--- THÊM DÒNG NÀY VÀO
@@ -21,18 +23,23 @@ namespace ChatBotSystem
                     o.UseVector(); 
                 }));
 
+            builder.Services.AddApplication();
+            // 2. Đăng ký Layer Infrastructure (Repository, DB) -> THÊM DÒNG NÀY VÀO
+            // Lưu ý: Phải truyền builder.Configuration vào để nó lấy ConnectionString
+            builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
-
+            builder.Services.AddEndpointsApiExplorer(); // ❗ bắt buộc
+            builder.Services.AddSwaggerGen();
             var app = builder.Build();
 
-            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");

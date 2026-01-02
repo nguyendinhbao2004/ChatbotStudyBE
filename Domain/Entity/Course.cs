@@ -42,7 +42,7 @@ namespace Domain.Entity
             
         }
 
-        public Course(string title, Guid subjectId, string description, Money price, string instructorId)
+        public Course(string title, Guid subjectId, string description, Money price, string instructorId, CourseLevel level)
         {
             if(string.IsNullOrWhiteSpace(title))
             {
@@ -54,9 +54,11 @@ namespace Domain.Entity
             }
 
             Title = title;
+            SubjectId = subjectId;
             Description = description;
             Price = price;
             InstructorId = instructorId;
+            Level = level;
         }
 
         public void Publish()

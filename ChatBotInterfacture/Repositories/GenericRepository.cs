@@ -1,4 +1,5 @@
 ﻿using ChatBotInterfacture.Config;
+using Domain.Common;
 using Domain.Interface.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChatBotInterfacture.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class, IAggregateRoot
     {
         // Protected để các Repository con (như CourseRepository) có thể dùng lại
         protected readonly ApplicationDbContext _context;

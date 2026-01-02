@@ -11,13 +11,15 @@ namespace Domain.Interface.Repository
     {
         // 1. Lấy chi tiết khóa học kèm theo thông tin Môn học (Subject) và Tài liệu (Documents)
         // Generic GetById chỉ lấy được thông tin bảng Course thôi, không lấy được bảng con.
-        Task<Course> GetByIdAsync(Guid id);
+        Task<(IEnumerable<Course> Items, int TotalCount)> GetByIdAsync(Guid id, int pageIndex, int pageSize);
+
+        Task<(IEnumerable<Course> Items, int TotalCount)> GetCoursesPagedAsync(string keyword, int pageIndex, int pageSize);
 
         //2. Kiểm tra trùng tên khóa học (Dùng để Validate khi tạo mới)
         Task<bool> IsCourseNameDuplicateAsync(string title);
 
         // 3. Lấy danh sách khóa học theo Giảng viên (Instructor)
-        Task<IEnumerable<Course>> GetCoursesByInstructorAsync(string instructorId);
+        Task<(IEnumerable<Course> Items, int TotalCount)> GetCoursesByInstructorAsync(string instructorId, int pageIndex, int pageSize);
 
     }
 }

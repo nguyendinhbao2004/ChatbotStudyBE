@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatBotApplication.Validation.Course
+namespace ChatBotApplication.Features.Courses.Commands.CreateCourse
 {
-    public class CreateCourseValidator : AbstractValidator<CreateCourseRequest>
+    public class CreateCourseValidator : AbstractValidator<CreateCourseCommand>
     {
         public CreateCourseValidator()
         {

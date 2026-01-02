@@ -3,40 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Common
 {
-    public class PagedResult<T>
+    public class PagedResult<T> : Result<List<T>>
     {
-        public List<T> Items { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public int TotalCount { get; set; }
         public int TotalPages { get; set; }
+        public int TotalRecords { get; set; }
+
         public bool HasPreviousPage => PageNumber > 1;
         public bool HasNextPage => PageNumber < TotalPages;
         //Hai biến tiện ích (helper). Frontend chỉ cần check if (HasNextPage == false) thì ẩn nút "Next" đi.
 
-        public PagedResult(List<T> items, int count, int pageNumber, int pageSize)
+
+        public PagedResult(List<T> data, int pageNumber, int pageSize, int totalRecords) : base(true, string.Empty, null, data)
         {
-            items = items;
-            TotalCount = count;
-            PageSize = pageSize;
             PageNumber = pageNumber;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-            //hàm Math.Ceiling (làm tròn lên) để tính.
+            PageSize = pageSize;
+            TotalRecords = totalRecords;
+            TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
         }
 
-        public PagedResult()
+        // Factory method: Nhận vào List<T>
+        public static PagedResult<T> Create(List<T> data, int totalRecords, int pageNumber, int pageSize)
         {
-            
-        }
-
-        // Helper static để tạo nhanh
-        //dùng Factory Pattern
-        public static PagedResult<T> Create(List<T> items, int count, int pageNumber, int pageSize)
-        {
-            return new PagedResult<T>(items, count, pageNumber, pageSize);
+            return new PagedResult<T>(data, pageNumber, pageSize, totalRecords);
         }
     }
 }

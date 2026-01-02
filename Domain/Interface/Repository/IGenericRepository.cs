@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interface.Repository
 {
-    public interface IGenericRepository<T> where T : class
+    //Chỉ chấp nhận T nếu T là AggregateRoot
+    public interface IGenericRepository<T> where T : class, IAggregateRoot
     {
         Task<T?> GetByIdAsync(object id);
 

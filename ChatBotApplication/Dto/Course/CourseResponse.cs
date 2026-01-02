@@ -17,6 +17,6 @@ namespace ChatBotApplication.Dto.Course
         public string Status { get; set; }// Trả về string cho dễ đọc (Draft/Published)
         public string Level { get; set; }
         public DateTime? CreateAt { get; set; }
-        public DateTime? UpdateAt { get; set;
+        public DateTime? UpdateAt { get; set; }
     }
 }

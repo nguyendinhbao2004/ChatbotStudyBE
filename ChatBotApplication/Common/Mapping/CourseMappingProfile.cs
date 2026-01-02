@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ChatBotApplication.Dto.Course;
+using ChatBotApplication.Features.Courses.Commands.CreateCourse;
 using Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,16 @@ namespace ChatBotApplication.Common.Mapping
         public CourseMappingProfile()
         {
             // Map từ Request -> Entity
-            CreateMap<CreateCourseRequest, Course>();
+            CreateMap<CreateCourseCommand, Course>();
 
-            CreateMap<UpdateCourseRequest, Course>();
+     
 
             // Map từ Entity -> Response
             CreateMap<Course, CourseResponse>()
                 .ForMember(dest => dest.SubjectName, opt => opt.MapFrom(src => src.Subject.Name))
                 .ForMember(dest => dest.Status, opt=> opt.MapFrom(src=> src.Status.ToString()))
-                .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level.ToString()));
+                .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level.ToString()))
+                .ForMember(dest => dest.Price, opt=> opt.MapFrom(src => src.Price.Amount));
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using ChatBotInterfacture.Config;
+using ChatBotInterfacture.Repositories;
 using Domain.Entity;
+using Domain.Interface;
+using Domain.Interface.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +42,9 @@ namespace ChatBotInterfacture
             // 3. Đăng ký Repositories (DI)
             // services.AddScoped<IUnitOfWork, UnitOfWork>();
             // services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

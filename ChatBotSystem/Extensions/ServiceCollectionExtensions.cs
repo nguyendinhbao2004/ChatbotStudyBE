@@ -9,6 +9,7 @@ namespace ChatBotSystem.Extensions
         {
             // Đăng ký GenericRepository
             services.AddScoped<ICourseRepository, CourseRepository>();
+
             return services;
         }
     }
