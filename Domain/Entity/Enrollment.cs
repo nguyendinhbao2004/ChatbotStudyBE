@@ -10,7 +10,7 @@ namespace Domain.Entity
 {
     public class Enrollment : BaseEntities
     {
-        public string UserId { get; private set; } // FK String (Identity)
+        public Guid UserId { get; private set; } // FK String (Identity)
         public virtual User? Student { get; private set; }
 
         public Guid CourseId { get; private set; } // FK Guid (Course)
@@ -21,9 +21,9 @@ namespace Domain.Entity
 
         protected Enrollment() { }
 
-        public Enrollment(string userId, Guid courseId)
+        public Enrollment(Guid userId, Guid courseId)
         {
-            if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException("User required");
+            if (userId == Guid.Empty) throw new ArgumentException("User required");
             if (courseId == Guid.Empty) throw new ArgumentException("Course required");
 
             UserId = userId;

@@ -8,7 +8,7 @@ using DocumentEntity = Domain.Entity.Document;
 
 namespace ChatBotInterfacture.Config
 {
-    public class ApplicationDbContext : IdentityDbContext<User, Role, string>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

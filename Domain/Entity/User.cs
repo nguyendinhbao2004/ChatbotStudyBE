@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    public class User : IdentityUser, IAggregateRoot
+    public class User : IdentityUser<Guid>, IAggregateRoot
     {
         public string FullName { get; private set; }
         public string? StudentId { get; private set; } // Mã sinh viên
@@ -31,6 +31,17 @@ namespace Domain.Entity
         // Constructor mặc định cho EF Core
         public User() { }
 
+        public User(string userName, string email, string fullName) : base()
+        {
+            if (string.IsNullOrWhiteSpace(userName)) throw new ArgumentNullException(nameof(userName));
+            if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException(nameof(email));
+            if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentNullException(nameof(fullName));
+
+            UserName = userName;
+            Email = email;
+            FullName = fullName;
+        }
+
         // Behavior Methods
         public void UpdateInfo(string fullName, string? studentId, string? major)
         {
@@ -40,11 +51,12 @@ namespace Domain.Entity
             Major = major;
         }
 
-        public void AddRefreshToken(string token, string jwtId, DateTime expires)
+        public void AddRefreshToken(string token, string jwtId, int expiryDays)
         {
             // Id là User.Id (kiểu string của Identity)
-            var rt = new RefreshToken(this.Id, token, jwtId, expires);
-            _refreshTokens.Add(rt);
+            // User tự tạo ra RefreshToken cho chính mình
+            var refreshToken = new RefreshToken(this.Id, token, jwtId, DateTime.UtcNow.AddDays(expiryDays));
+            _refreshTokens.Add(refreshToken);
         }
 
         public void UpdateAddress(string street, string city, string country)

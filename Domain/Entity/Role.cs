@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    public class Role : IdentityRole
+    public class Role : IdentityRole<Guid>
     {
         public string? Description { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;

@@ -8,7 +8,7 @@ using Pgvector;
 namespace ChatBotInterfacture.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate_V1 : Migration
+    public partial class adduserfield : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace ChatBotInterfacture.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -36,10 +36,15 @@ namespace ChatBotInterfacture.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FullName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     StudentId = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     Major = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Street = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    State = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ZipCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -86,7 +91,7 @@ namespace ChatBotInterfacture.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
@@ -107,7 +112,7 @@ namespace ChatBotInterfacture.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
@@ -129,7 +134,7 @@ namespace ChatBotInterfacture.Migrations
                     LoginProvider = table.Column<string>(type: "text", nullable: false),
                     ProviderKey = table.Column<string>(type: "text", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,8 +151,8 @@ namespace ChatBotInterfacture.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,7 +175,7 @@ namespace ChatBotInterfacture.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     LoginProvider = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<string>(type: "text", nullable: true)
@@ -192,6 +197,7 @@ namespace ChatBotInterfacture.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     LastActive = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -204,11 +210,10 @@ namespace ChatBotInterfacture.Migrations
                 {
                     table.PrimaryKey("PK_Conversations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Conversations_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Conversations_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +221,7 @@ namespace ChatBotInterfacture.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: false),
                     JwtId = table.Column<string>(type: "text", nullable: false),
                     IsUsed = table.Column<bool>(type: "boolean", nullable: false),
@@ -247,7 +252,8 @@ namespace ChatBotInterfacture.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    PriceAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    PriceCurrency = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     InstructorId = table.Column<string>(type: "text", nullable: false),
                     SubjectId = table.Column<Guid>(type: "uuid", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
@@ -335,7 +341,7 @@ namespace ChatBotInterfacture.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CourseId = table.Column<Guid>(type: "uuid", nullable: false),
                     EnrollAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Progress = table.Column<float>(type: "real", nullable: false),
@@ -462,9 +468,9 @@ namespace ChatBotInterfacture.Migrations
                 column: "ConversationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Conversations_UserId",
+                name: "IX_Conversations_UserId1",
                 table: "Conversations",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_SubjectId",
