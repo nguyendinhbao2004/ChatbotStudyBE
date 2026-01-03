@@ -31,15 +31,16 @@ namespace Domain.Entity
         // Constructor mặc định cho EF Core
         public User() { }
 
-        public User(string userName, string email, string fullName) : base()
+        public User(string email, string fullName) : base()
         {
-            if (string.IsNullOrWhiteSpace(userName)) throw new ArgumentNullException(nameof(userName));
+            Id = Guid.NewGuid();
             if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException(nameof(email));
             if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentNullException(nameof(fullName));
-
-            UserName = userName;
+            Id = Guid.NewGuid();
+            UserName = email;
             Email = email;
             FullName = fullName;
+            SecurityStamp = Guid.NewGuid().ToString();
         }
 
         // Behavior Methods
@@ -51,7 +52,7 @@ namespace Domain.Entity
             Major = major;
         }
 
-        public void AddRefreshToken(string token, string jwtId, int expiryDays)
+        public void AddRefreshToken(string token, string jwtId, int expiryDays = 30)
         {
             // Id là User.Id (kiểu string của Identity)
             // User tự tạo ra RefreshToken cho chính mình

@@ -8,10 +8,14 @@ namespace Domain.Common
 {
     public class Result
     {
-        public bool Succeeded { get; protected set; }
-        public string Message { get; protected set; }
-        public List<string> Errors { get; protected set; }
+        public bool Succeeded { get; set; }
+        public string Message { get;  set; }
+        public List<string> Errors { get; set; }
 
+        public Result()
+        {
+            
+        }
         public Result(bool succeeded, string message, IEnumerable<string> errors)
         {
             Succeeded = succeeded;

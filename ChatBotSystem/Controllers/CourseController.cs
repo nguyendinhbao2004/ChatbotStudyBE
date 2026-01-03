@@ -4,6 +4,7 @@ using ChatBotApplication.Features.Courses.Queries.GetAllCourse;
 using Domain.Entity;
 using Domain.Interface.Repository;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace ChatBotSystem.Controllers
             _mediator = mediator;
         }
 
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Course>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllCourses(
@@ -30,7 +32,8 @@ namespace ChatBotSystem.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-
+        
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseCommand command)

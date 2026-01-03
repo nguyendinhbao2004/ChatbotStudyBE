@@ -1,4 +1,5 @@
-﻿using ChatBotInterfacture.Config;
+﻿using ChatBotInterfacture.Authentication;
+using ChatBotInterfacture.Config;
 using ChatBotInterfacture.Repositories;
 using Domain.Entity;
 using Domain.Interface;
@@ -45,6 +46,7 @@ namespace ChatBotInterfacture
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;
         }

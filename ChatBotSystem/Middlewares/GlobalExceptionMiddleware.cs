@@ -1,6 +1,7 @@
 ﻿using Domain.Common;
 using Domain.Exception;
 using Domain.Exceptions;
+using FluentValidation;
 using System.Net;
 using System.Text.Json;
 
@@ -40,20 +41,30 @@ namespace ChatBotSystem.Middlewares
             context.Response.ContentType = "application/json";
 
             // Mặc định là lỗi 500 (Lỗi hệ thống)
-            var response = Result.Failure("An internal error occurred.");
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            var responseResult = new Result
+            {
+                Succeeded = false,
+                Message = "Lỗi hệ thống",
+                Errors = new List<string> { exception.Message}
+            };
+            
 
             switch (exception)
             {
+                case ValidationException validationEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    responseResult.Message = "Dữ liệu không hợp lệ";
+                    responseResult.Errors = validationEx.Errors.Select(e => e.ErrorMessage).ToList();
+                    break;
                 // 1. Lỗi Nghiệp vụ -> Trả về 400 (Bad Request)
                 case DomainException domainException:
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response = Result.Failure(domainException.Message);
+                    responseResult = Result.Failure(domainException.Message);
                     break;
                // 2. Lỗi Không tìm thấy -> Trả về 404 (Not Found)
                 case EntityNotFoundException notFoundException:
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    response = Result.Failure(notFoundException.Message);
+                    responseResult = Result.Failure(notFoundException.Message);
                     break;
 
                 // 3. Lỗi xác thực dữ liệu (Nếu dùng FluentValidation sau này)
@@ -68,7 +79,7 @@ namespace ChatBotSystem.Middlewares
                     break;
             }
             // Chuyển object Result thành JSON để trả về Client
-            var result = JsonSerializer.Serialize(response, new JsonSerializerOptions
+            var result = JsonSerializer.Serialize(responseResult, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase //format camelCase cho JS dễ đọc
             });
