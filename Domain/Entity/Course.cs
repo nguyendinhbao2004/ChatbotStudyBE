@@ -73,7 +73,7 @@ namespace Domain.Entity
             Title = title;
             Price = price;
             Description = decription;
-            level = level;
+            Level = level;
         }
 
         public void AddDocument(Document document)

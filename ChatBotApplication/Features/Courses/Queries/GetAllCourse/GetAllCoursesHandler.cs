@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ChatBotApplication.Features.Courses.Queries.GetAllCourse
 {
-    internal class GetAllCoursesHandler : IRequestHandler<GetAllCoursesQuery, PagedResult<CourseResponse>>
+    public class GetAllCoursesHandler : IRequestHandler<GetAllCoursesQuery, PagedResult<CourseResponse>>
     {
         private readonly ICourseRepository _repo;
         private readonly IMapper _mapper;

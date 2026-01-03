@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 
 namespace ChatBotApplication.Features.Courses.Queries.GetAllCourse
 {
-    public class GetAllCoursesQuery : IRequest<PagedResult<CourseResponse>>
+    public record GetAllCoursesQuery(string? Keyword, int PageIndex, int PageSize) : IRequest<PagedResult<CourseResponse>>
     {
-        public string? Keyword { get; set; }
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
 
-        public GetAllCoursesQuery(string? keyword, int pageIndex, int pageSize)
-        {
-            keyword = keyword;
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-        }
     }
 }
+//giống với 
+// public class CourseQuery
+// {
+//     public string Keyword { get; }
+//     public int PageIndex { get; }
+
+//     public CourseQuery(string keyword, int pageIndex)
+//     {
+//         Keyword = keyword;
+//         PageIndex = pageIndex;
+//     }
+// }
