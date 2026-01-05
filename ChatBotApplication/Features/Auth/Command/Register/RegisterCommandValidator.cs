@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -25,6 +26,22 @@ namespace ChatBotApplication.Features.Auth.Command.Register
                 .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter.")
                 .Matches("[0-9]").WithMessage("Password must contain at least one digit.")
                 .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character.");
+            
+            RuleFor(x => x.StudentId)
+                .NotEmpty().WithMessage("StudentId is Require.");
+            RuleFor(x => x.Major)
+                .NotEmpty().WithMessage("Major is Require.");
+            
+            RuleFor(x => x.street)
+                .NotEmpty().WithMessage("Street is Require.");
+            RuleFor(x => x.city)
+                .NotEmpty().WithMessage("City is Require.");
+            RuleFor(x => x.State)
+                .NotEmpty().WithMessage("State is Require.");
+            RuleFor(x => x.country)
+                .NotEmpty().WithMessage("Country is Require.");
+            RuleFor(x => x.ZipCode)
+                .NotEmpty().WithMessage("ZipCode is Require.");
         }
     }
 }

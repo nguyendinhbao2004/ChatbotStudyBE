@@ -15,7 +15,7 @@ namespace Domain.Entity
     {
 
         // 1. Properties (Private Set)
-        public Guid ConversationId { get; private set; } // FK là Guid
+        public Guid ConversationId { get; private set; } // FK là Guid và đã config trong dbcontext rồi
         public MessageRole Role { get; private set; }    // Dùng Enum
         public string Content { get; private set; }
 

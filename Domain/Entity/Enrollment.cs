@@ -1,20 +1,24 @@
 ﻿using Domain.Common;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace Domain.Entity
 {
-    public class Enrollment : BaseEntities
+    public class Enrollment : BaseEntities, IAggregateRoot
     {
         public Guid UserId { get; private set; } // FK String (Identity)
         public virtual User? Student { get; private set; }
 
         public Guid CourseId { get; private set; } // FK Guid (Course)
         public virtual Course? Course { get; private set; }
+
+        public EnrollmentStatus Status { get; private set; }
 
         public DateTime EnrollAt { get; private set; } = DateTime.UtcNow;
         public float Progress { get; private set; } // 0.0 - 100.0
@@ -28,6 +32,7 @@ namespace Domain.Entity
 
             UserId = userId;
             CourseId = courseId;
+            EnrollAt = DateTime.UtcNow;
             Progress = 0;
         }
 

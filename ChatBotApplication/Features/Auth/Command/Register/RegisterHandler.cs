@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Domain.Common;
 using Domain.Entity;
 using Domain.Interface;
+using Domain.ValueOjects;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -25,7 +26,9 @@ namespace ChatBotApplication.Features.Auth.Command.Register
 
             if(existingUser !=null) return Result<Guid>.Failure("Email is already registered.");
 
-            var newUser = new User(request.Email, request.FullName);
+            var address = new Address(request.street, request.city, request.State, request.country, request.ZipCode);
+
+            var newUser = new User(request.Email, request.FullName, request.StudentId, request.Major, address);
 
             var Result = await _userManager.CreateAsync(newUser, request.Password);
 

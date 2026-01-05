@@ -14,5 +14,15 @@ namespace ChatBotApplication.Features.Courses.Commands.UpdateCourse
         public decimal Price { get; set; }
         public Guid SubjectId { get; set; }
         public CourseLevel Level { get; set; }
+
+        public UpdateCourseCommand(Guid id, string title, string decription, decimal price, Guid subjectId, CourseLevel level)
+        {
+            Id = id;
+            Title = title;
+            Decription = decription;
+            Price = price;
+            SubjectId = subjectId;
+            Level = level;
+        }
     }
 }

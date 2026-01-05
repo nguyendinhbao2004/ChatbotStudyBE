@@ -31,15 +31,21 @@ namespace Domain.Entity
         // Constructor mặc định cho EF Core
         public User() { }
 
-        public User(string email, string fullName) : base()
+        public User(string email, string fullName, string studentId, string major, Address address) : base()
         {
             Id = Guid.NewGuid();
             if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException(nameof(email));
             if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentNullException(nameof(fullName));
+            if(address == null) throw new ArgumentNullException(nameof(address));
+            if (string.IsNullOrWhiteSpace(studentId)) throw new ArgumentNullException(nameof(studentId));
+            if (string.IsNullOrWhiteSpace(major)) throw new ArgumentNullException(nameof(major));
             Id = Guid.NewGuid();
             UserName = email;
             Email = email;
             FullName = fullName;
+            StudentId = studentId;
+            Major = major;
+            Address = address;
             SecurityStamp = Guid.NewGuid().ToString();
         }
 

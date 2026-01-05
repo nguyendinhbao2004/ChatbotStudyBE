@@ -1,6 +1,7 @@
 ﻿using ChatBotApplication.Dto.Course;
 using ChatBotApplication.Features.Courses.Commands.CreateCourse;
 using ChatBotApplication.Features.Courses.Commands.DeleteCourse;
+using ChatBotApplication.Features.Courses.Commands.PublishCourse;
 using ChatBotApplication.Features.Courses.Commands.UpdateCourse;
 using ChatBotApplication.Features.Courses.Queries.GetAllCourse;
 using ChatBotApplication.Features.Courses.Queries.GetCourseById;
@@ -195,6 +196,41 @@ namespace ChatBotSystem.Controllers
             }
             var command = new DeleteCourseCommand(id);
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Publish một khóa học theo ID
+        /// </summary>
+        /// <remarks>
+        /// API này cho phép Publish một khóa học dựa trên ID.  
+        /// <br /> **Yêu cầu:** User phải đăng nhập.
+        /// </remarks>
+        /// <param name="id">Nhập Id của Course</param>
+        /// <returns>Publish Course thành công</returns>
+        /// <response code="200">Thành công: Khóa học được Publish thành công</response>
+        /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
+        /// <response code="400">Lỗi: Không thể Publish khóa học rỗng</response>
+        /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
+        [Authorize]
+        [HttpPut("publish/{id}")]
+        public async Task<IActionResult> PublishCourse([FromRoute] Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid course ID");
+            }
+            var command = new PublishCourseCommand(id);
+            var result = await _mediator.Send(command);
+            if (!result.Succeeded)
+            {
+                if(result.Message.Contains("not found"))
+                {
+                    return NotFound(result);
+                }
+                return BadRequest(result);
+            }
             return Ok(result);
         }
     }

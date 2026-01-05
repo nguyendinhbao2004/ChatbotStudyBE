@@ -59,6 +59,7 @@ namespace Domain.Entity
             Price = price;
             InstructorId = instructorId;
             Level = level;
+            Status = CourseStatus.Draft;
         }
 
         public void Publish()
