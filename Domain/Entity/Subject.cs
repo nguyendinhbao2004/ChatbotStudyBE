@@ -23,16 +23,16 @@ namespace Domain.Entity
         private readonly List<Document> _documents = new();
         public IReadOnlyCollection<Document> Documents => _documents.AsReadOnly();
         public Subject() { }
-        public Subject(string name, string code, List<Course> course, string? description = null)
+        public Subject(string name, string code, string? description = null)
         {
+            Id = Guid.NewGuid();
             // Id đã tự sinh là Guid ở BaseEntity rồi
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             if (string.IsNullOrWhiteSpace(code)) throw new ArgumentNullException(nameof(code));
-
+            
             Name = name.Trim();
             Code = code.Trim().ToUpper();
             Description = description;
-            _courses = course;
         }
 
         public void UpdateInfo(string name, string code, string? description)

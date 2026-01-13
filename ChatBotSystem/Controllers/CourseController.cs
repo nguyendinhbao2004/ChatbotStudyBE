@@ -5,6 +5,7 @@ using ChatBotApplication.Features.Courses.Commands.PublishCourse;
 using ChatBotApplication.Features.Courses.Commands.UpdateCourse;
 using ChatBotApplication.Features.Courses.Queries.GetAllCourse;
 using ChatBotApplication.Features.Courses.Queries.GetCourseById;
+using ChatBotSystem.Extensions;
 using Domain.Common;
 using Domain.Entity;
 using Domain.Interface.Repository;
@@ -15,8 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChatBotSystem.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CourseController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,10 +45,10 @@ namespace ChatBotSystem.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Course>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)] 
+        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllCourses(
-            [FromQuery] string? keyword, 
+            [FromQuery] string? keyword,
             [FromQuery] int pageIndex = 1,
             [FromQuery] int pageSize = 10)
         {
@@ -68,170 +69,184 @@ namespace ChatBotSystem.Controllers
         /// <response code="201">Thành công: Khóa học được tạo thành công</response>
         /// <response code="400">Lỗi: Dữ liệu đầu vào không hợp lệ</response>
         /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
-        [Authorize]
-        [HttpPost]
+        [HttpPost("create")]
         [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)] 
+        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseCommand command)
         {
-            command.InstructorId = "user-123"; // Giả sử lấy từ token
-            var result = await _mediator.Send(command);
-            if(!result.Succeeded)
+            try
             {
-                // 3. Kiểm tra logic để biết đây là lỗi 404 (Không tìm thấy)
-        // (Cách đơn giản nhất là check message hoặc data null)
-                if(result.Message.Contains("not found"))
-                {
-                    // 👇 QUAN TRỌNG: Truyền 'result' vào đây!
-            // Nó sẽ lấy toàn bộ Message và Errors từ Handler để hiển thị ra JSON
-                    return NotFound(result);
-                }
-                return BadRequest(result);
+                // Giả sử InstructorId trong Command là Guid (nếu là string thì .ToString() ok)
+                command.InstructorId = User.GetUserId().ToString();
             }
-            return Ok(result);
-        }
+            catch (UnauthorizedAccessException)
+            {
+                // ❌ LỖI CŨ: Unauthorized();
+                // ✅ SỬA: Phải có return
+                return Unauthorized(Result.Failure("Token không hợp lệ hoặc thiếu thông tin User."));
+            }
 
-        /// <summary>
-        /// Lấy chi tiết một khóa học theo ID
-        /// </summary>
-        /// <remarks>
-        /// API này trả về thông tin đầy đủ của khóa học bao gồm: Tên, giá, môn học và giảng viên.
-        /// <br />
-        /// **Yêu cầu:** User phải đăng nhập.
-        /// </remarks>
-        /// <param name="id">Mã định danh (GUID) của khóa học</param>
-        /// <returns>Đối tượng chi tiết khóa học</returns>
-        /// <response code="200">Thành công: Trả về dữ liệu khóa học</response>
-        /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
-        /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
-        [Authorize]
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(CourseDetailDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)] 
-        [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> GetCourseById([FromRoute] Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest("Invalid course ID");
-            }
-            var query = new GetCourseByIdQuery(id);
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(command);
+
             if (!result.Succeeded)
             {
-                if(result.Message.Contains("not found"))
+                // ✅ LOGIC BẮT LỖI 404
+                // Kiểm tra message từ Handler trả về
+                if (result.Message.Contains("not found") || result.Message.Contains("không tồn tại"))
                 {
                     return NotFound(result);
                 }
+
                 return BadRequest(result);
             }
-            return Ok(result);
-        }
 
-        /// <summary>
-        /// Cập nhật thông tin một khóa học
-        /// </summary>
-        /// <remarks>
-        /// API này cho phép cập nhật thông tin của một khóa học dựa trên ID.
-        /// <br /> **Yêu cầu:** User phải đăng nhập.
-        /// </remarks>
-        /// <param name="id">Mã định danh (GUID) của khóa học</param>
-        /// <param name="command">Đối tượng chứa thông tin khóa học cần cập nhật</param>
-        /// <returns>Đối tượng khóa học đã được cập nhật</returns>
-        /// <response code="200">Thành công: Khóa học được cập nhật thành công</response>
-        /// <response code="400">Lỗi: Dữ liệu đầu vào không hợp lệ</response>
-        /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
-        /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
-        [Authorize]
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)] 
-        [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> UpdateCourse([FromRoute] Guid id, [FromBody] UpdateCourseCommand command)
-        {
-            if (id == Guid.Empty)
+            // ✅ TRẢ VỀ 201 CREATED (Chuẩn RESTful)
+            // Giả sử bạn có hàm GetCourseById, nó sẽ tạo header Location trỏ tới khóa học mới
+            // Nếu lười thì dùng return StatusCode(201, result);
+            return CreatedAtAction(nameof(GetCourseById), new { id = result.Data }, result);
+        }
+            /// <summary>
+            /// Lấy chi tiết một khóa học theo ID
+            /// </summary>
+            /// <remarks>
+            /// API này trả về thông tin đầy đủ của khóa học bao gồm: Tên, giá, môn học và giảng viên.
+            /// <br />
+            /// **Yêu cầu:** User phải đăng nhập.
+            /// </remarks>
+            /// <param name="id">Mã định danh (GUID) của khóa học</param>
+            /// <returns>Đối tượng chi tiết khóa học</returns>
+            /// <response code="200">Thành công: Trả về dữ liệu khóa học</response>
+            /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
+            /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
+            [Authorize]
+            [HttpGet("{id}")]
+            [ProducesResponseType(typeof(CourseDetailDto), StatusCodes.Status200OK)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
+            public async Task<IActionResult> GetCourseById([FromRoute] Guid id)
             {
-                return BadRequest("Invalid course ID");
-            }
-            command.Id = id;
-            var result = await _mediator.Send(command);
-            if (!result.Succeeded)
-            {
-                if(result.Message.Contains("Update failed"))
+                if (id == Guid.Empty)
                 {
-                    return NotFound(result);
+                    return BadRequest("Invalid course ID");
                 }
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Xóa một khóa học theo ID
-        /// </summary>
-        /// <remarks>
-        /// API này cho phép xóa một khóa học dựa trên ID.
-        /// <br /> **Yêu cầu:** User phải đăng nhập.
-        /// </remarks>
-        /// <param name="id">Mã định danh (GUID) của khóa học</param>
-        /// <returns>Xóa thành công khóa học</returns>
-        /// <response code="200">Thành công: Khóa học được xóa thành công</response>
-        /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
-        /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
-        [Authorize]
-        [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)] 
-        [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> DeleteCourse([FromRoute] Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest("Invalid course ID");
-            }
-            var command = new DeleteCourseCommand(id);
-            var result = await _mediator.Send(command);
-            return Ok(result);
-        }
-
-
-        /// <summary>
-        /// Publish một khóa học theo ID
-        /// </summary>
-        /// <remarks>
-        /// API này cho phép Publish một khóa học dựa trên ID.  
-        /// <br /> **Yêu cầu:** User phải đăng nhập.
-        /// </remarks>
-        /// <param name="id">Nhập Id của Course</param>
-        /// <returns>Publish Course thành công</returns>
-        /// <response code="200">Thành công: Khóa học được Publish thành công</response>
-        /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
-        /// <response code="400">Lỗi: Không thể Publish khóa học rỗng</response>
-        /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
-        [Authorize]
-        [HttpPut("publish/{id}")]
-        public async Task<IActionResult> PublishCourse([FromRoute] Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest("Invalid course ID");
-            }
-            var command = new PublishCourseCommand(id);
-            var result = await _mediator.Send(command);
-            if (!result.Succeeded)
-            {
-                if(result.Message.Contains("not found"))
+                var query = new GetCourseByIdQuery(id);
+                var result = await _mediator.Send(query);
+                if (!result.Succeeded)
                 {
-                    return NotFound(result);
+                    if (result.Message.Contains("not found"))
+                    {
+                        return NotFound(result);
+                    }
+                    return BadRequest(result);
                 }
-                return BadRequest(result);
+                return Ok(result);
             }
-            return Ok(result);
+
+            /// <summary>
+            /// Cập nhật thông tin một khóa học
+            /// </summary>
+            /// <remarks>
+            /// API này cho phép cập nhật thông tin của một khóa học dựa trên ID.
+            /// <br /> **Yêu cầu:** User phải đăng nhập.
+            /// </remarks>
+            /// <param name="id">Mã định danh (GUID) của khóa học</param>
+            /// <param name="command">Đối tượng chứa thông tin khóa học cần cập nhật</param>
+            /// <returns>Đối tượng khóa học đã được cập nhật</returns>
+            /// <response code="200">Thành công: Khóa học được cập nhật thành công</response>
+            /// <response code="400">Lỗi: Dữ liệu đầu vào không hợp lệ</response>
+            /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
+            /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
+            [Authorize]
+            [HttpPut("{id}")]
+            [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status200OK)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
+            public async Task<IActionResult> UpdateCourse([FromRoute] Guid id, [FromBody] UpdateCourseCommand command)
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Invalid course ID");
+                }
+                command.Id = id;
+                var result = await _mediator.Send(command);
+                if (!result.Succeeded)
+                {
+                    if (result.Message.Contains("Update failed"))
+                    {
+                        return NotFound(result);
+                    }
+                    return BadRequest(result);
+                }
+                return Ok(result);
+            }
+
+            /// <summary>
+            /// Xóa một khóa học theo ID
+            /// </summary>
+            /// <remarks>
+            /// API này cho phép xóa một khóa học dựa trên ID.
+            /// <br /> **Yêu cầu:** User phải đăng nhập.
+            /// </remarks>
+            /// <param name="id">Mã định danh (GUID) của khóa học</param>
+            /// <returns>Xóa thành công khóa học</returns>
+            /// <response code="200">Thành công: Khóa học được xóa thành công</response>
+            /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
+            /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
+            [Authorize]
+            [HttpDelete("{id}")]
+            [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status200OK)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status401Unauthorized)]
+            [ProducesResponseType(typeof(Result), StatusCodes.Status403Forbidden)]
+            public async Task<IActionResult> DeleteCourse([FromRoute] Guid id)
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Invalid course ID");
+                }
+                var command = new DeleteCourseCommand(id);
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+
+
+            /// <summary>
+            /// Publish một khóa học theo ID
+            /// </summary>
+            /// <remarks>
+            /// API này cho phép Publish một khóa học dựa trên ID.  
+            /// <br /> **Yêu cầu:** User phải đăng nhập.
+            /// </remarks>
+            /// <param name="id">Nhập Id của Course</param>
+            /// <returns>Publish Course thành công</returns>
+            /// <response code="200">Thành công: Khóa học được Publish thành công</response>
+            /// <response code="404">Lỗi: Không tìm thấy khóa học với ID này</response>
+            /// <response code="400">Lỗi: Không thể Publish khóa học rỗng</response>
+            /// <response code="401">Lỗi: Chưa đăng nhập (Token không hợp lệ)</response>
+            [Authorize]
+            [HttpPut("publish/{id}")]
+            public async Task<IActionResult> PublishCourse([FromRoute] Guid id)
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest("Invalid course ID");
+                }
+                var command = new PublishCourseCommand(id);
+                var result = await _mediator.Send(command);
+                if (!result.Succeeded)
+                {
+                    if (result.Message.Contains("not found"))
+                    {
+                        return NotFound(result);
+                    }
+                    return BadRequest(result);
+                }
+                return Ok(result);
+            }
         }
     }
-}

@@ -14,17 +14,24 @@ namespace ChatBotApplication.Features.Auth.Command.Register
     public class RegisterHandler : IRequestHandler<RegisterCommand, Result<Guid>>
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManage;
 
-        public RegisterHandler(UserManager<User> userManager)
+        public RegisterHandler(UserManager<User> userManager, RoleManager<Role> roleManage)
         {
             _userManager = userManager;
+            _roleManage = roleManage;
         }
 
         public async Task<Result<Guid>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
 
-            if(existingUser !=null) return Result<Guid>.Failure("Email is already registered.");
+            if (existingUser != null) return Result<Guid>.Failure("Email is already registered.");
+
+            if (!await _roleManage.RoleExistsAsync("Student"))
+            {
+                return Result<Guid>.Failure("Lỗi hệ thống: Role 'Student' chưa được khởi tạo. Vui lòng chạy Migration Service.");
+            }
 
             var address = new Address(request.street, request.city, request.State, request.country, request.ZipCode);
 
@@ -32,7 +39,7 @@ namespace ChatBotApplication.Features.Auth.Command.Register
 
             var Result = await _userManager.CreateAsync(newUser, request.Password);
 
-            if(!Result.Succeeded)
+            if (!Result.Succeeded)
             {
                 return Result<Guid>.Failure(string.Join(", ", Result.Errors.Select(e => e.Description)));
             }

@@ -1,5 +1,7 @@
-﻿using ChatBotInterfacture.Authentication;
+﻿using ChatBotApplication.Common.Interfaces;
+using ChatBotInterfacture.Authentication;
 using ChatBotInterfacture.Config;
+using ChatBotInterfacture.Data;
 using ChatBotInterfacture.Repositories;
 using Domain.Entity;
 using Domain.Interface;
@@ -43,6 +45,7 @@ namespace ChatBotInterfacture
             // 3. Đăng ký Repositories (DI)
             // services.AddScoped<IUnitOfWork, UnitOfWork>();
             // services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IMigrationService, MigrationService>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

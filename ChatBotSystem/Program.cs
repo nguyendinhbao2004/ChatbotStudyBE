@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using ChatBotApplication;
+using ChatBotApplication.Common.Interfaces;
 using ChatBotInterfacture;
 using ChatBotInterfacture.Config;
 using ChatBotSystem.Middlewares;
@@ -10,12 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pgvector.EntityFrameworkCore; // <--- THÊM DÒNG NÀY VÀO
+using System.Threading.Tasks;
 
 namespace ChatBotSystem
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -26,14 +28,21 @@ namespace ChatBotSystem
                 options.UseNpgsql(connectionString, o =>
                 {
                     o.MigrationsAssembly("ChatBotInterfacture");
-                    o.UseVector(); 
+                    o.UseVector();
                 }));
             
-            builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options => {
+            builder.Services.AddApplication();
+            // 2. Đăng ký Layer Infrastructure (Repository, DB) -> THÊM DÒNG NÀY VÀO
+            // Lưu ý: Phải truyền builder.Configuration vào để nó lấy ConnectionString
+            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+.AddJwtBearer(options =>
+{
     // ... (Phần TokenValidationParameters giữ nguyên) ...
     var jwtSettings = builder.Configuration.GetSection("JwtSettings");
     options.TokenValidationParameters = new TokenValidationParameters
@@ -45,7 +54,7 @@ namespace ChatBotSystem
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]))
     };
 
     // 👇 THÊM ĐOẠN NÀY ĐỂ CUSTOM TRẢ VỀ JSON CHO 401 & 403
@@ -55,7 +64,7 @@ namespace ChatBotSystem
         OnChallenge = context =>
         {
             // Bỏ qua behavior mặc định (trả về header rỗng)
-            context.HandleResponse(); 
+            context.HandleResponse();
 
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             context.Response.ContentType = "application/json";
@@ -79,6 +88,7 @@ namespace ChatBotSystem
         }
     };
 });
+            builder.Services.AddAuthorization();
 
             builder.Services.AddSwaggerGen(option =>
             {
@@ -115,7 +125,7 @@ namespace ChatBotSystem
                 // Lấy tên file XML theo tên Assembly (Project)
                 var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    
+
                 // 👇 THÊM ĐOẠN IF NÀY VÀO
                 if (File.Exists(xmlPath))
                 {
@@ -123,16 +133,32 @@ namespace ChatBotSystem
                 }
             });
 
-            builder.Services.AddApplication();
-            // 2. Đăng ký Layer Infrastructure (Repository, DB) -> THÊM DÒNG NÀY VÀO
-            // Lưu ý: Phải truyền builder.Configuration vào để nó lấy ConnectionString
-            builder.Services.AddInfrastructure(builder.Configuration);
+            
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer(); // ❗ bắt buộc
             builder.Services.AddSwaggerGen();
             var app = builder.Build();
+            //auto migration section
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    // Lấy service ra và chạy
+                    var migrationService = services.GetRequiredService<IMigrationService>();
 
+
+                    await migrationService.MigrateAsync();
+
+                    Console.WriteLine("Database Migration & Seeding Completed!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Migration Failed: {ex.Message}");
+                }
+            }
+            
 
             if (app.Environment.IsDevelopment())
             {
@@ -143,8 +169,8 @@ namespace ChatBotSystem
 
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
