@@ -3,6 +3,7 @@ using ChatBotInterfacture.Authentication;
 using ChatBotInterfacture.Config;
 using ChatBotInterfacture.Data;
 using ChatBotInterfacture.Repositories;
+using ChatBotInterfacture.Services;
 using Domain.Entity;
 using Domain.Interface;
 using Domain.Interface.Repository;
@@ -46,10 +47,12 @@ namespace ChatBotInterfacture
             // services.AddScoped<IUnitOfWork, UnitOfWork>();
             // services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IMigrationService, MigrationService>();
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IAiService, OpenAIService>();
 
             return services;
         }

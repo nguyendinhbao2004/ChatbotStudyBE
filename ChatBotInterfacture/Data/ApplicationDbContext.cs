@@ -1,4 +1,5 @@
-﻿using Domain.Entity;
+﻿using ChatBotApplication.Common.Interfaces;
+using Domain.Entity;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace ChatBotInterfacture.Config
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, Guid, 
         IdentityUserClaim<Guid>, IdentityUserRole<Guid>, IdentityUserLogin<Guid>, 
-        IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
+        IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

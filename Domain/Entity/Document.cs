@@ -44,11 +44,11 @@ namespace Domain.Entity
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             if (string.IsNullOrWhiteSpace(filePath)) throw new ArgumentNullException(nameof(filePath));
             
-
+            Id = Guid.NewGuid();
             Title = title;
             FilePath = filePath;
             FileSize = fileSize;
-            Id = subjectId;
+            SubjectId = subjectId;
             CourseId = courseId;
             Status = DocumentStatus.Pending; // Mặc định vừa tạo là Pending
             FileType = fileType;
